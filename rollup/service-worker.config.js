@@ -18,6 +18,5 @@ export default {
 		}),
 		commonjs(),
 		!dev && terser()
-	],
-	experimentalCodeSplitting: true
+	]
 };
