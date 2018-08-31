@@ -27,11 +27,20 @@ export default {
 
 		legacy && babel({
 			extensions: ['.js', '.html'],
-			include: [
-				'app/**',
-				'routes/**'
+			runtimeHelpers: true,
+			babelrc: false,
+			exclude: ['node_modules/@babel/**'],
+			presets: [
+				['@babel/preset-env', {
+					targets: '> 0.25%, not dead'
+				}]
 			],
-			runtimeHelpers: true
+			plugins: [
+				'@babel/plugin-syntax-dynamic-import',
+				['@babel/plugin-transform-runtime', {
+					useESModules: true
+				}]
+			]
 		}),
 
 		!dev && terser({
