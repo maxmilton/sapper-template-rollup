@@ -28,7 +28,6 @@ export default {
 		legacy && babel({
 			extensions: ['.js', '.html'],
 			runtimeHelpers: true,
-			babelrc: false,
 			exclude: ['node_modules/@babel/**'],
 			presets: [
 				['@babel/preset-env', {
