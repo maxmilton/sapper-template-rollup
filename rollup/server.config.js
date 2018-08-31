@@ -12,17 +12,17 @@ export default {
 	input: config.server.input(),
 	output: config.server.output(),
 	plugins: [
+		svelte({
+			generate: 'ssr',
+			dev,
+			hydratable: true
+		}),
 		resolve(),
 		replace({
 			'process.browser': true,
 			'process.env.NODE_ENV': JSON.stringify(mode)
 		}),
-		commonjs(),
-		svelte({
-			generate: 'ssr',
-			dev,
-			hydratable: true
-		})
+		commonjs()
 	],
 	external: Object.keys(pkg.dependencies).concat(
 		require('module').builtinModules

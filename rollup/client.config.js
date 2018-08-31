@@ -14,16 +14,16 @@ export default {
 	input: config.client.input(),
 	output: config.client.output(),
 	plugins: [
+		svelte({
+			dev,
+			hydratable: true
+		}),
 		resolve(),
 		replace({
 			'process.browser': true,
 			'process.env.NODE_ENV': JSON.stringify(mode)
 		}),
 		commonjs(),
-		svelte({
-			dev,
-			hydratable: true
-		}),
 
 		legacy && babel({
 			extensions: ['.js', '.html'],
