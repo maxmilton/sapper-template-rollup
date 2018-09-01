@@ -9,7 +9,7 @@ const cached = new Set(to_cache);
 
 self.addEventListener('install', event => {
 	event.waitUntil(
-		caches
+		self.caches
 			.open(ASSETS)
 			.then(cache => cache.addAll(to_cache))
 			.then(() => {
@@ -20,10 +20,10 @@ self.addEventListener('install', event => {
 
 self.addEventListener('activate', event => {
 	event.waitUntil(
-		caches.keys().then(async keys => {
+		self.caches.keys().then(async keys => {
 			// delete old caches
 			for (const key of keys) {
-				if (key !== ASSETS) await caches.delete(key);
+				if (key !== ASSETS) await self.caches.delete(key);
 			}
 
 			self.clients.claim();
@@ -44,7 +44,7 @@ self.addEventListener('fetch', event => {
 
 	// always serve assets and webpack-generated files from cache
 	if (url.host === self.location.host && cached.has(url.pathname)) {
-		event.respondWith(caches.match(event.request));
+		event.respondWith(self.caches.match(event.request));
 		return;
 	}
 
@@ -53,7 +53,7 @@ self.addEventListener('fetch', event => {
 	// app, but if it's right for yours then uncomment this section
 	/*
 	if (url.origin === self.origin && routes.find(route => route.pattern.test(url.pathname))) {
-		event.respondWith(caches.match('/index.html'));
+		event.respondWith(self.caches.match('/index.html'));
 		return;
 	}
 	*/
@@ -64,7 +64,7 @@ self.addEventListener('fetch', event => {
 	// cache if the user is offline. (If the pages never change, you
 	// might prefer a cache-first approach to a network-first one.)
 	event.respondWith(
-		caches
+		self.caches
 			.open(`offline${timestamp}`)
 			.then(async cache => {
 				try {
