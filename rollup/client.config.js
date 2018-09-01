@@ -48,7 +48,8 @@ export default {
 			// 	'./externs.js',
 			// ],
 			// compilation_level: 'ADVANCED',
-			warning_level: 'VERBOSE',
+			// dependency_mode: 'LOOSE',
+			// warning_level: 'VERBOSE',
 
 			// uncomment for debugging
 			// formatting: 'PRETTY_PRINT',
