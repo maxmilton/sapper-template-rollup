@@ -3,7 +3,7 @@ import replace from 'rollup-plugin-replace';
 import commonjs from 'rollup-plugin-commonjs';
 import svelte from 'rollup-plugin-svelte';
 import babel from 'rollup-plugin-babel';
-import { terser } from 'rollup-plugin-terser';
+import compiler from '@ampproject/rollup-plugin-closure-compiler';
 import config from 'sapper/config/rollup.js';
 
 const mode = process.env.NODE_ENV;
@@ -42,9 +42,18 @@ export default {
 			]
 		}),
 
-		!dev && terser({
-			module: true
-		})
+		!dev && compiler({
+			// externs: [
+			// 	'./node_modules/google-closure-compiler/contrib/externs/svg.js',
+			// 	'./externs.js',
+			// ],
+			// compilation_level: 'ADVANCED',
+			warning_level: 'VERBOSE',
+
+			// uncomment for debugging
+			// formatting: 'PRETTY_PRINT',
+			// debug: true,
+		}),
 	],
 	experimentalCodeSplitting: true
 };

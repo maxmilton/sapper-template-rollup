@@ -1,7 +1,7 @@
 import resolve from 'rollup-plugin-node-resolve';
 import replace from 'rollup-plugin-replace';
 import commonjs from 'rollup-plugin-commonjs';
-import { terser } from 'rollup-plugin-terser';
+import compiler from '@ampproject/rollup-plugin-closure-compiler';
 import config from 'sapper/config/rollup.js';
 
 const mode = process.env.NODE_ENV;
@@ -17,6 +17,8 @@ export default {
 			'process.env.NODE_ENV': JSON.stringify(mode)
 		}),
 		commonjs(),
-		!dev && terser()
+		!dev && compiler({
+			compilation_level: 'ADVANCED',
+		})
 	]
 };
