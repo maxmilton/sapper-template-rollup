@@ -1,3 +1,4 @@
+import path from 'path';
 import resolve from 'rollup-plugin-node-resolve';
 import replace from 'rollup-plugin-replace';
 import commonjs from 'rollup-plugin-commonjs';
@@ -43,13 +44,13 @@ export default {
 		}),
 
 		!dev && compiler({
-			// externs: [
-			// 	'./node_modules/google-closure-compiler/contrib/externs/svg.js',
-			// 	'./externs.js',
-			// ],
-			// compilation_level: 'ADVANCED',
+			externs: [
+				require.resolve('google-closure-compiler/contrib/externs/svg.js'),
+				path.join(__dirname, 'component-externs.js'),
+			],
+			compilation_level: 'ADVANCED',
 			// dependency_mode: 'LOOSE',
-			// warning_level: 'VERBOSE',
+			warning_level: 'VERBOSE',
 
 			// uncomment for debugging
 			// formatting: 'PRETTY_PRINT',
